@@ -3,6 +3,8 @@ from="$(date --date="6 months ago" +%Y-%m-%d)"
 timestamp="$(date +%Y-%m-%d-%H-%M-%S)"
 DOMAIN=1.1.1.1
 MAIL_SERVER=1.1.1.2
+MAIL_FROM=a@a.com
+MAIL_to=a@abc.com
 
 POL_NAME=Network
 POL2=$(echo $POL_NAME | tr -d ' ')
@@ -77,4 +79,4 @@ SECHEAD=n
               sed "s,$, '$POL_NAME'," $POL2-tmp.txt > $POL2-2tmp.txt; sed "s/^/mgmt_cli -r true -d $DOMAIN/" $POL2-2tmp.txt >$POL2-unused.txt; rm *tmp.txt
   fi
 
-$FWDIR/bin/sendmail -t $MAIL_SERVER -s "Rules with Zero Hits Since $from"    -f MAIL_FROM MAIL_TO <$POL2-unused.txt
+$FWDIR/bin/sendmail -t $MAIL_SERVER -s "Rules with Zero Hits Since $from" -f $MAIL_FROM $MAIL_TO <$POL2-unused.txt
